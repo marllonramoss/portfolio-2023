@@ -42,7 +42,7 @@ export default function ProjectDetails() {
                 <a href="https://github.com" target="_blank">
                     <Button className="min-w-[180px]">
                         <FiGlobe size={20}/>
-                        Projeto ONline
+                        Projeto Online
                     </Button>
                 </a>
             </div>
