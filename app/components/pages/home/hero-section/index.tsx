@@ -1,31 +1,18 @@
 'use client'
 
 import Button from "@/app/components/button";
+import CMSIcon from "@/app/components/cms-icon";
+import RichText from "@/app/components/rich-text";
 import TechBadge from "@/app/components/tech-badge";
+import { HomePageInfo } from "@/app/types/page-info";
 import Image from "next/image";
 import { HiArrowNarrowRight } from 'react-icons/hi'
-import { TbBrandGithub, TbBrandLinkedin, TbBrandWhatsapp, TbBrandYoutube } from 'react-icons/tb'
 
-const MOCK_CONTACTS = [
-    {
-        url:'https://github.com.br',
-        icon: <TbBrandGithub/>
-    },
-    {
-        url:'https://github.com.br',
-        icon: <TbBrandLinkedin/>
-    },
-    {
-        url:'https://github.com.br',
-        icon: <TbBrandYoutube/>
-    },
-    {
-        url:'https://github.com.br',
-        icon: <TbBrandWhatsapp/>
-    }
-]
+type HeroSectionProps = {
+    homeInfo: HomePageInfo
+}
 
-export default function HeroSection() {
+export default function HeroSection({ homeInfo }: HeroSectionProps) {
     const handleContact = () => {
         const contactSection = document.querySelector('#contact');
         if(contactSection) {
@@ -40,11 +27,13 @@ export default function HeroSection() {
                     <p className="font-mono text-emerald-400">Olá, meu nome é</p>
                     <h2 className="text-4xl font-medium mt-2">Marllon Ramos</h2>
 
-                    <p className="text-gray-400 my-6 text-sm sm:text-base">Olá, meu nome é Gabriel Borges e sou um desenvolvedor front-end apaixonado por tecnologia. Com mais de 2 anos de experiência. Meu objetivo é criar interfaces de usuário bonitas e funcionais, além de liderar equipes técnicas em projetos desafiadores. Estou sempre aberto a novas oportunidades e desafios.</p>
+                    <p className="text-gray-400 my-6 text-sm sm:text-base">
+                        <RichText content={homeInfo.introduction.raw} />
+                    </p>
                     
                     <div className="flex flex-wrap gap-x-2 gap-y-3 lg:max-w-[340px]">
-                        {Array.from({length: 7}).map((_, index) => (
-                            <TechBadge name="Next.js" />
+                        {homeInfo.technologies.map((tech) => (
+                            <TechBadge name={tech.name} />
                         ))}
                     </div>
 
@@ -55,14 +44,14 @@ export default function HeroSection() {
                         </Button>
 
                         <div className="text-gray-600 text-2xl flex items-center h-20 gap-3">
-                            {MOCK_CONTACTS.map((contact, index) => (
+                            {homeInfo.socials.map((contact, index) => (
                                 <a 
                                 href={contact.url}
                                 key={`contact-${index}`}
                                 target="_blank"
                                 className="hover:text-gray-100 transition-colors"
                                 >
-                                    {contact.icon}
+                                    <CMSIcon icon={contact.iconSvg}/>
                                 </a>
                             ))}
                         </div>
@@ -72,7 +61,7 @@ export default function HeroSection() {
                 <Image
                 width={420}
                 height={404}
-                src="/images/profile-pic.png"
+                src={homeInfo.profilePicture.url}
                 alt="Profile random test picture"
                 className="w-[300px] h-[300px] lg:w-[420px] lg:h-[404px] mb-6 lg:mb-0 shadow-2xl rounded-lg object-cover"
                 />
