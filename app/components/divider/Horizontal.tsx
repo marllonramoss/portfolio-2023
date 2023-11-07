@@ -1,9 +1,11 @@
-interface HorizontalDividerProps {
-    className?: string
+import { cn } from '@/app/lib/utils'
+
+type HorizontalDividerProps = {
+  className?: string
 }
 
-export default function HorizontalDivider(props: HorizontalDividerProps) {
-    return (
-        <div className={`w-full my-8 border-b border-b-gray-800 ${props.className ?? ''}`}></div>
-    )
+export const HorizontalDivider = ({ className }: HorizontalDividerProps) => {
+  return (
+    <div className={cn('w-full my-8 border-b border-b-gray-800', className)} />
+  )
 }
