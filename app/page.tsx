@@ -62,7 +62,6 @@ const getPageData = async (): Promise<HomePageData> => {
     }
   `
 
-// Reset dos dados Hygraph ( deixar 1 apenas, inicializar, dps voltar com a função ja inicializado)
   return fetchHygraphQuery(
     query,
     1000 * 60 * 60 * 24, // 1 day
